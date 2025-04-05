@@ -4,9 +4,18 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import {Controlled as ControlledEditor} from 'react-codemirror2'
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
-import 'codemirror/mode/xml/xml';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/css/css';
+import 'codemirror/mode/xml/xml';               
+import 'codemirror/mode/javascript/javascript'; 
+import 'codemirror/mode/css/css';               
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/hint/html-hint';
+import 'codemirror/addon/hint/css-hint';
+import 'codemirror/addon/hint/javascript-hint';
+
+
 
 
 const Heading = styled(Box)
@@ -33,7 +42,7 @@ const EditorContainer = styled(Box)`
     padding: 0px 7px;
 `
 
-function Editor({heading, icon, value, onChange}) {
+function Editor({heading, displayName,icon, value, onChange}) {
 
     const [open, setOpen] = useState(true);
 
@@ -56,7 +65,7 @@ function Editor({heading, icon, value, onChange}) {
                     marginRight:5,
                     paddingBottom:2,
                 }}>{icon}</Box>
-                {heading}
+                {displayName}
             </Heading>
             <FullscreenExitIcon 
                 onClick={() => setOpen(!open)}
@@ -67,10 +76,23 @@ function Editor({heading, icon, value, onChange}) {
             value={value}
             onBeforeChange={handleChange}
             options= {{
-                lineNumbers: true,
-                mode: 'xml',
+                lineWrapping: true,
+                lint: true,
+                mode: heading,
                 theme: 'material',
-                lineWrapping: true
+                lineNumbers: true,
+                autoCloseTags: true,
+                autoCloseBrackets: true,
+                extraKeys: {
+                'Ctrl-Space': 'autocomplete',
+                'Tab': (cm) => {
+                if (cm.state.completionActive) {
+                    cm.state.completionActive.pick();
+                } else {
+                    cm.replaceSelection("  ");
+                }
+                },
+                },
             }}
         />
     </EditorContainer>

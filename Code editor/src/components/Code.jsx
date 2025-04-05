@@ -19,21 +19,24 @@ function Code() {
   return (
     <Container>
       <Editor 
-        heading="HTML" 
+        heading="xml"
+        displayName="HTML" 
         icon={<img src={htmlImg} 
         alt="image didnot load" />}
         value={html}
         onChange={setHtml}
         />
       <Editor 
-        heading="CSS" 
+        heading="css"
+        displayName="CSS"
         icon={<img src={cssImg} 
         alt="image didnot load" />}
         value={css}
         onChange={setCss}
         />
       <Editor 
-        heading="JS" 
+        heading="javascript"
+        displayName="JS" 
         icon={<img src={jsImg} 
         alt="image didnot load" />}
         value={js}
