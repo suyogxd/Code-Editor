@@ -17,7 +17,7 @@ function Code() {
   const {html, setHtml, css, setCss, js, setJs} = useContext(DataContext);
   
   return (
-    <Container>
+    <Container style={{paddingTop: 25}}>
       <Editor 
         heading="xml"
         displayName="HTML" 
